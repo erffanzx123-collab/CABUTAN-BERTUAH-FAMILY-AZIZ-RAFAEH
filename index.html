@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabutan Bertuah Mesin Slot</title>
+    <style>
+        body {
+            background-color: #2b0c42;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .slot-container {
+            background: linear-gradient(135deg, #d4af37, #aa771c);
+            padding: 30px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            border: 5px solid #fff;
+        }
+        .slot-box {
+            background: #111;
+            color: #00ffcc;
+            font-size: 32px;
+            font-weight: bold;
+            padding: 20px 40px;
+            border-radius: 10px;
+            min-width: 400px;
+            border: 4px inset #ffcc00;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        button {
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+        button:hover {
+            background-color: #ff1144;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CABUTAN BERTUAH EKSKLUSIF</h1>
+    
+    <div class="slot-container">
+        <div id="slotDisplay" class="slot-box">TEKAN 'SPIN' UNTUK MULA</div>
+        <button onclick="startSlot()">SPIN SEKARANG!</button>
+    </div>
+
+    <script>
+        // Senarai nama peserta yang anda boleh masukkan dari Google Sheets / Slido
+        const participants = [
+            "AHMAD ZAKI", 
+            "SITI NOR HALIZA", 
+            "MOHD FARHAN", 
+            "NURUL AIN", 
+            "MUHAMMAD ERFFAN", 
+            "JESSICA TAN", 
+            "RAJU A/L KUMAR"
+        ];
+
+        function startSlot() {
+            let display = document.getElementById("slotDisplay");
+            let counter = 0;
+            let maxTurns = 25; // Berapa kali nama bertukar sebelum berhenti
+            
+            let interval = setInterval(() => {
+                let randomIndex = Math.floor(Math.random() * participants.length);
+                display.innerHTML = participants[randomIndex];
+                counter++;
+                
+                if (counter >= maxTurns) {
+                    clearInterval(interval);
+                    // Pilihan pemenang akhir secara rawak
+                    let finalWinner = participants[Math.floor(Math.random() * participants.length)];
+                    display.innerHTML = "🏆 " + finalWinner + " 🏆";
+                }
+            }, 100); // Kelajuan pertukaran nama (dalam milisaat)
+        }
+    </script>
+
+</body>
+</html>

@@ -2,89 +2,597 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Cabutan Bertuah Mesin Slot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesin Slot Cabutan Bertuah VIP</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #2b0c42;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle at center, #2e0854 0%, #160228 70%, #0a0114 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .slot-container {
-            background: linear-gradient(135deg, #d4af37, #aa771c);
-            padding: 30px;
-            border-radius: 20px;
-            display: inline-block;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
-            border: 5px solid #fff;
+
+        .font-impact {
+            font-family: 'Montserrat', sans-serif;
         }
-        .slot-box {
-            background: #111;
-            color: #00ffcc;
-            font-size: 32px;
-            font-weight: bold;
-            padding: 20px 40px;
-            border-radius: 10px;
-            min-width: 400px;
-            border: 4px inset #ffcc00;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+
+        /* Animated Glowing Marquee Bulbs */
+        .marquee-bulb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #ffd700;
+            box-shadow: 0 0 10px #ffea00, 0 0 20px #ffea00;
+            animation: bulbBlink 1s infinite alternate;
         }
-        button {
-            background-color: #ff3366;
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: 0.2s;
+
+        .marquee-bulb:nth-child(even) {
+            animation-delay: 0.5s;
         }
-        button:hover {
-            background-color: #ff1144;
+
+        @keyframes bulbBlink {
+            0% {
+                background-color: #ff9d00;
+                box-shadow: 0 0 4px #ff9d00;
+                opacity: 0.5;
+            }
+            100% {
+                background-color: #ffffff;
+                box-shadow: 0 0 15px #fff700, 0 0 30px #ffea00;
+                opacity: 1;
+            }
+        }
+
+        /* Gold Gradient Border */
+        .gold-border {
+            border: 6px solid;
+            border-image: linear-gradient(to bottom right, #ffe57f, #ffb300, #fff8e1, #ff8f00) 1;
+        }
+
+        /* Slot Window Styling */
+        .slot-window {
+            background: linear-gradient(180deg, #090214 0%, #1f0836 50%, #090214 100%);
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slot-window::before, .slot-window::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 35%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .slot-window::before {
+            top: 0;
+            background: linear-gradient(to bottom, rgba(10, 1, 20, 0.9), rgba(10, 1, 20, 0));
+        }
+
+        .slot-window::after {
+            bottom: 0;
+            background: linear-gradient(to top, rgba(10, 1, 20, 0.9), rgba(10, 1, 20, 0));
+        }
+
+        /* Glowing text effect */
+        .neon-gold-text {
+            color: #fff2a8;
+            text-shadow: 0 0 10px #ffb700, 0 0 20px #ff8800, 0 0 40px #ff5500;
+        }
+
+        .neon-winner-text {
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #0088ff, 0 0 40px #0044ff;
+        }
+
+        /* Big Spin Button Pulse */
+        .btn-spin {
+            background: linear-gradient(180deg, #ff416c 0%, #ff4b2b 100%);
+            box-shadow: 0 10px 0 #b31217, 0 15px 25px rgba(255, 65, 108, 0.6);
+            transition: all 0.1s ease;
+        }
+
+        .btn-spin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 0 #b31217, 0 20px 30px rgba(255, 65, 108, 0.8);
+        }
+
+        .btn-spin:active {
+            transform: translateY(6px);
+            box-shadow: 0 4px 0 #b31217, 0 5px 10px rgba(255, 65, 108, 0.4);
+        }
+
+        /* Custom Scrollbar for Drawer/Modal */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb300;
+            border-radius: 4px;
+        }
+
+        /* Modal Overlay */
+        .modal-blur {
+            backdrop-filter: blur(8px);
+        }
+
+        /* Winner Reel Animation Blur */
+        .spinning-blur {
+            filter: blur(2px);
             transform: scale(1.05);
         }
     </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen justify-between items-center p-3 sm:p-6 relative">
 
-    <h1>CABUTAN BERTUAH EKSKLUSIF</h1>
-    
-    <div class="slot-container">
-        <div id="slotDisplay" class="slot-box">GOODLUCK</div>
-        <button onclick="startSlot()">SPIN </button>
+    <!-- Background Decorative Elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0 opacity-30">
+        <div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-purple-600 rounded-full filter blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-amber-500 rounded-full filter blur-[120px]"></div>
+        <div class="absolute top-[40%] right-[10%] w-[300px] h-[300px] bg-pink-600 rounded-full filter blur-[100px]"></div>
     </div>
 
+    <!-- Header Section -->
+    <header class="z-10 text-center mb-3 sm:mb-6 w-full max-w-4xl">
+        <div class="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-semibold mb-2">
+            <i class="fa-solid fa-crown text-amber-400"></i> SYSTEM CABUTAN BERTUAH EKSKLUSIF
+        </div>
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black font-impact tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-400 to-yellow-500 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)] uppercase">
+            CABUTAN BERTUAH
+        </h1>
+        <p class="text-purple-200 text-xs sm:text-base mt-1">Imbas QR & Putar Mesin Slot Untuk Kemenangan!</p>
+    </header>
+
+    <!-- MAIN SLOT MACHINE CONTAINER -->
+    <main class="z-10 w-full max-w-4xl flex flex-col items-center">
+        
+        <!-- Outer Casino Machine Body -->
+        <div class="w-full bg-gradient-to-b from-amber-600 via-amber-700 to-amber-900 p-4 sm:p-7 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] border-4 border-amber-300 relative">
+            
+            <!-- Top Signboard -->
+            <div class="bg-gradient-to-r from-purple-900 via-indigo-950 to-purple-900 border-2 border-amber-400 rounded-xl p-3 mb-4 text-center shadow-inner relative overflow-hidden flex justify-between items-center px-4">
+                <span class="text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-widest flex items-center gap-1.5">
+                    <i class="fa-solid fa-users"></i> Peserta: <span id="participantCount" class="text-white text-base font-black px-2 py-0.5 bg-purple-950 rounded border border-amber-400/30">0</span>
+                </span>
+                
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleAudio()" id="audioBtn" class="text-amber-300 hover:text-white bg-purple-950/60 p-2 rounded-lg border border-amber-500/30 text-xs sm:text-sm transition">
+                        <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+                    </button>
+                    <button onclick="openSetupModal()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-purple-950 font-bold px-3 py-1.5 rounded-lg text-xs sm:text-sm shadow flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-user-plus"></i> <span class="hidden sm:inline">Urus</span> Nama
+                    </button>
+                    <button onclick="openQRGuideModal()" class="bg-purple-950/80 hover:bg-purple-900 text-amber-300 border border-amber-400/40 font-bold px-3 py-1.5 rounded-lg text-xs sm:text-sm transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-qrcode"></i> QR Guide
+                    </button>
+                </div>
+            </div>
+
+            <!-- MARQUEE FRAME WITH BULBS -->
+            <div class="relative bg-gradient-to-b from-red-800 via-red-900 to-red-950 p-4 sm:p-6 rounded-2xl border-4 border-amber-400 shadow-[0_0_30px_rgba(255,191,0,0.4)]">
+                
+                <!-- TOP BULBS ROW -->
+                <div class="absolute -top-3 left-4 right-4 flex justify-between items-center z-20">
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                </div>
+
+                <!-- BOTTOM BULBS ROW -->
+                <div class="absolute -bottom-3 left-4 right-4 flex justify-between items-center z-20">
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                </div>
+
+                <!-- LEFT BULBS ROW -->
+                <div class="absolute top-4 bottom-4 -left-3 flex flex-col justify-between items-center z-20">
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                </div>
+
+                <!-- RIGHT BULBS ROW -->
+                <div class="absolute top-4 bottom-4 -right-3 flex flex-col justify-between items-center z-20">
+                    <div class="marquee-bulb"></div><div class="marquee-bulb"></div><div class="marquee-bulb"></div>
+                </div>
+
+                <!-- INNER REEL DISPLAY (HORIZONTAL SINGLE REEL) -->
+                <div class="slot-window rounded-xl h-40 sm:h-52 w-full flex items-center justify-center border-2 border-amber-500/50">
+                    
+                    <!-- Center Pointer Target Overlay -->
+                    <div class="absolute left-0 right-0 h-20 sm:h-24 border-y-2 border-amber-400/80 bg-amber-400/10 pointer-events-none z-10 flex justify-between items-center px-2">
+                        <i class="fa-solid fa-caret-right text-amber-400 text-2xl sm:text-4xl animate-pulse"></i>
+                        <i class="fa-solid fa-caret-left text-amber-400 text-2xl sm:text-4xl animate-pulse"></i>
+                    </div>
+
+                    <!-- REEL DISPLAY TEXT -->
+                    <div id="slotReel" class="text-2xl sm:text-4xl md:text-5xl font-black font-impact tracking-wider text-center neon-gold-text px-4 transition-all duration-75">
+                        TEKAN 'PUSING' MULA
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLS & SPIN BUTTON -->
+            <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button id="spinBtn" onclick="spinSlot()" class="btn-spin w-full sm:w-auto px-10 py-4 sm:py-5 rounded-2xl text-2xl sm:text-3xl font-black font-impact tracking-widest text-white uppercase cursor-pointer flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-play"></i> PUSING CABUTAN!
+                </button>
+            </div>
+        </div>
+
+        <!-- WINNERS HISTORY LOG -->
+        <div class="w-full mt-6 bg-purple-950/60 border border-purple-500/30 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-xl">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="text-amber-300 font-bold text-base sm:text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-amber-400"></i> Senarai Pemenang Bertuah (<span id="winnerCount">0</span>)
+                </h3>
+                <button onclick="clearWinners()" class="text-xs text-red-300 hover:text-red-100 bg-red-950/50 hover:bg-red-900 border border-red-500/30 px-2.5 py-1 rounded transition">
+                    <i class="fa-solid fa-trash-can"></i> Padam Log
+                </button>
+            </div>
+            
+            <div id="winnersList" class="flex flex-wrap gap-2 max-h-36 overflow-y-auto p-1">
+                <span class="text-purple-300/60 text-xs italic">Belum ada pemenang cabutan. Tekan 'PUSING' untuk mula!</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="z-10 text-center text-purple-300/60 text-xs mt-6">
+        Sistem Cabutan Bertuah Mesin Slot • Mod Eliminasi Automatik 100% Percuma
+    </footer>
+
+    <!-- MODAL 1: SETUP PARTICIPANTS -->
+    <div id="setupModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 modal-blur">
+        <div class="bg-gradient-to-b from-purple-900 to-indigo-950 border-2 border-amber-400 rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative">
+            <button onclick="closeSetupModal()" class="absolute top-4 right-4 text-purple-300 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold text-amber-300 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-users-gear"></i> Pengurusan Peserta
+            </h2>
+            <p class="text-purple-200 text-xs mb-4">Masukkan senarai nama peserta (Satu nama setiap baris).</p>
+
+            <textarea id="nameInputArea" rows="8" class="w-full bg-purple-950/80 border border-amber-500/40 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-amber-400 font-sans" placeholder="MUHAMMAD ERFFAN&#10;AHMAD ZAKI&#10;SITI NURHALIZA&#10;JESSICA TAN&#10;RAJU A/L KUMAR"></textarea>
+
+            <div class="flex flex-wrap sm:flex-nowrap gap-2 mt-4">
+                <button onclick="loadSampleData()" class="w-full sm:w-auto bg-purple-800 hover:bg-purple-700 text-purple-100 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm border border-purple-400/30 transition">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Contoh Nama
+                </button>
+                <button onclick="saveParticipants()" class="w-full sm:w-auto flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-purple-950 font-bold px-4 py-2 rounded-xl text-xs sm:text-sm shadow transition">
+                    <i class="fa-solid fa-floppy-disk"></i> Simpan Senarai Peserta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: QR & GOOGLE FORM INTEGRATION GUIDE -->
+    <div id="qrGuideModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 modal-blur">
+        <div class="bg-gradient-to-b from-purple-900 to-indigo-950 border-2 border-amber-400 rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeQRGuideModal()" class="absolute top-4 right-4 text-purple-300 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold text-amber-300 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-qrcode"></i> Panduan Imbas QR Code
+            </h2>
+            <p class="text-purple-200 text-xs mb-4">Cara mudah kumpul nama peserta guna Google Forms secara percuma:</p>
+
+            <ol class="space-y-3 text-xs sm:text-sm text-purple-100 list-decimal list-inside">
+                <li class="bg-purple-950/60 p-3 rounded-xl border border-purple-500/20">
+                    <strong class="text-amber-300">Cipta Google Form:</strong> Buat borang ringkas dengan soalan wajib <em>"Nama Penuh"</em>.
+                </li>
+                <li class="bg-purple-950/60 p-3 rounded-xl border border-purple-500/20">
+                    <strong class="text-amber-300">Jana QR Code:</strong> Salin pautan Google Form tersebut & jana Kod QR di laman percuma (contoh: me-qr.com / Canva).
+                </li>
+                <li class="bg-purple-950/60 p-3 rounded-xl border border-purple-500/20">
+                    <strong class="text-amber-300">Paparkan QR di Skrin:</strong> Minta peserta scan QR guna telefon & isi nama sebelum cabutan bermula.
+                </li>
+                <li class="bg-purple-950/60 p-3 rounded-xl border border-purple-500/20">
+                    <strong class="text-amber-300">Salin Senarai Nama:</strong> Buka Google Sheets (Responses), salin (*copy*) lajur nama, dan tampal (*paste*) ke dalam butang **'Urus Nama'** di atas!
+                </li>
+            </ol>
+
+            <button onclick="closeQRGuideModal()" class="w-full mt-5 bg-amber-500 hover:bg-amber-400 text-purple-950 font-bold py-2 rounded-xl text-sm transition">
+                Faham & Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- WINNER POPUP ANNOUNCEMENT MODAL -->
+    <div id="winnerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 modal-blur">
+        <div class="bg-gradient-to-b from-amber-500 via-amber-600 to-amber-800 border-4 border-yellow-300 rounded-3xl max-w-md w-full p-6 text-center shadow-[0_0_50px_rgba(255,215,0,0.8)] transform scale-95 transition-transform duration-300 relative overflow-hidden">
+            
+            <div class="text-yellow-200 text-sm font-bold uppercase tracking-widest mb-1">
+                🎉 TAHNIAH PEMENANG! 🎉
+            </div>
+            
+            <div class="my-4 py-4 px-2 bg-purple-950/90 border-2 border-amber-300 rounded-2xl shadow-inner">
+                <h3 id="winnerModalName" class="text-2xl sm:text-4xl font-black font-impact neon-winner-text break-words">
+                    NAMA PEMENANG
+                </h3>
+            </div>
+
+            <p class="text-purple-950 font-bold text-xs mb-6">
+                ✨ Nama ini telah disemat dalam senarai pemenang & dikeluarkan daripada cabutan seterusnya.
+            </p>
+
+            <button onclick="closeWinnerModal()" class="w-full bg-gradient-to-r from-purple-900 to-indigo-950 hover:from-purple-800 hover:to-indigo-900 text-amber-300 font-black text-lg py-3 rounded-2xl border-2 border-amber-400 shadow-lg transition transform active:scale-95">
+                TERUSKAN CABUTAN <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Senarai nama peserta yang anda boleh masukkan dari Google Sheets / Slido
-        const participants = [
-            "AHMAD ZAKI", 
-            "SITI NOR HALIZA", 
-            "MOHD FARHAN", 
-           
+        // State variables
+        let participants = [];
+        let winners = [];
+        let isSpinning = false;
+        let soundEnabled = true;
+
+        // Sample Malay Names for testing
+        const sampleMalayNames = [
+            "MUHAMMAD ERFFAN BIN ZULKIFLI",
+            "SITI NURHALIZA BINTI TARUDIN",
+            "AHMAD ZAKI BIN RAHMAN",
+            "NURUL AIN BINTI ROSLI",
+            "KHALID BIN WALID",
+            "JESSICA TAN MEI LING",
+            "RAJU A/L KUMARAN",
+            "FARAH DIANA BINTI HASNAN",
+            "AMIRUL HAKIM BIN SHAH",
+            "CHONG WEI JIE"
         ];
 
-        function startSlot() {
-            let display = document.getElementById("slotDisplay");
-            let counter = 0;
-            let maxTurns = 50; // Berapa kali nama bertukar sebelum berhenti
-            
-            let interval = setInterval(() => {
-                let randomIndex = Math.floor(Math.random() * participants.length);
-                display.innerHTML = participants[randomIndex];
-                counter++;
-                
-                if (counter >= maxTurns) {
-                    clearInterval(interval);
-                    // Pilihan pemenang akhir secara rawak
-                    let finalWinner = participants[Math.floor(Math.random() * participants.length)];
-                    display.innerHTML = "🏆 " + finalWinner + " 🏆";
-                }
-            }, 100); // Kelajuan pertukaran nama (dalam milisaat)
+        // Web Audio API Context for Sounds
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
         }
-    </script>
-</body>
-</html>
+
+        // Sound 1: Slot Tick Sound
+        function playTickSound() {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300 + Math.random() * 200, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } catch (e) {}
+        }
+
+        // Sound 2: Victory Fanfare Sound
+        function playVictorySound() {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                const notes = [261.63, 329.63, 392.00, 523.25]; // C E G C
+                notes.forEach((freq, idx) => {
+                    let osc = audioCtx.createOscillator();
+                    let gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.12);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime + idx * 0.12);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.12 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(audioCtx.currentTime + idx * 0.12);
+                    osc.stop(audioCtx.currentTime + idx * 0.12 + 0.3);
+                });
+            } catch (e) {}
+        }
+
+        function toggleAudio() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('audioIcon');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high';
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-red-400';
+            }
+        }
+
+        // Initialize App on Load
+        window.onload = function() {
+            // Load from localStorage if available, else load samples
+            const savedNames = localStorage.getItem('slot_participants');
+            if (savedNames) {
+                participants = JSON.parse(savedNames);
+            } else {
+                participants = [...sampleMalayNames];
+            }
+            updateUI();
+        };
+
+        function updateUI() {
+            document.getElementById('participantCount').innerText = participants.length;
+            document.getElementById('winnerCount').innerText = winners.length;
+
+            const reelDisplay = document.getElementById('slotReel');
+            if (!isSpinning) {
+                if (participants.length === 0 && winners.length === 0) {
+                    reelDisplay.innerText = "SILA MASUKKAN NAMA";
+                } else if (participants.length === 0) {
+                    reelDisplay.innerText = "SEMUA PESERTA DAH MENANG!";
+                }
+            }
+        }
+
+        // Spin Logic
+        function spinSlot() {
+            if (isSpinning) return;
+
+            const reelDisplay = document.getElementById('slotReel');
+
+            if (participants.length === 0) {
+                reelDisplay.innerHTML = "<span class='text-red-400'>TIADA PESERTA!</span>";
+                alert("Tiada nama peserta tinggal! Sila masukkan nama baharu di ruangan 'Urus Nama'.");
+                return;
+            }
+
+            isSpinning = true;
+            document.getElementById('spinBtn').disabled = true;
+            document.getElementById('spinBtn').classList.add('opacity-50', 'cursor-not-allowed');
+
+            let counter = 0;
+            const totalRolls = 35; // Number of reel changes
+            let speed = 50; // Initial speed in ms
+
+            reelDisplay.classList.add('spinning-blur');
+
+            function rollStep() {
+                // Pick random name for roll visual
+                const randomIndex = Math.floor(Math.random() * participants.length);
+                reelDisplay.innerText = participants[randomIndex];
+                playTickSound();
+
+                counter++;
+                if (counter < totalRolls) {
+                    // Gradually slow down near the end
+                    if (counter > totalRolls - 10) {
+                        speed += 25;
+                    }
+                    setTimeout(rollStep, speed);
+                } else {
+                    // Final winner pick
+                    finalizeWinner();
+                }
+            }
+
+            rollStep();
+        }
+
+        function finalizeWinner() {
+            const winnerIndex = Math.floor(Math.random() * participants.length);
+            const winnerName = participants[winnerIndex];
+
+            // AUTOMATIC ELIMINATION RULE: Remove winner from participants pool
+            participants.splice(winnerIndex, 1);
+            winners.push(winnerName);
+
+            // Save state
+            localStorage.setItem('slot_participants', JSON.stringify(participants));
+
+            // Visual updates
+            const reelDisplay = document.getElementById('slotReel');
+            reelDisplay.classList.remove('spinning-blur');
+            reelDisplay.innerText = winnerName;
+
+            isSpinning = false;
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+
+            updateUI();
+            renderWinnersLog();
+
+            // Trigger Victory Effects
+            playVictorySound();
+            triggerConfetti();
+
+            // Show Winner Popup
+            setTimeout(() => {
+                document.getElementById('winnerModalName').innerText = winnerName;
+                document.getElementById('winnerModal').classList.remove('hidden');
+            }, 400);
+        }
+
+        // Render Winners History Log
+        function renderWinnersLog() {
+            const container = document.getElementById('winnersList');
+            if (winners.length === 0) {
+                container.innerHTML = `<span class="text-purple-300/60 text-xs italic">Belum ada pemenang cabutan. Tekan 'PUSING' untuk mula!</span>`;
+                return;
+            }
+
+            container.innerHTML = winners.map((name, idx) => `
+                <div class="bg-gradient-to-r from-amber-400 to-amber-500 text-purple-950 font-bold px-3 py-1 rounded-lg text-xs flex items-center gap-1.5 shadow">
+                    <span class="bg-purple-950 text-amber-300 rounded-full w-4 h-4 flex items-center justify-center text-[10px]">${idx + 1}</span>
+                    ${name}
+                </div>
+            `).join('');
+        }
+
+        function clearWinners() {
+            if (confirm("Adakah anda pasti mahu memadamkan log pemenang?")) {
+                winners = [];
+                renderWinnersLog();
+                updateUI();
+            }
+        }
+
+        // Confetti Burst Effect
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Modal Controls
+        function openSetupModal() {
+            document.getElementById('nameInputArea').value = participants.join('\n');
+            document.getElementById('setupModal').classList.remove('hidden');
+        }
+
+        function closeSetupModal() {
+            document.getElementById('setupModal').classList.add('hidden');
+        }
+
+        function loadSampleData() {
+            document.getElementById('nameInputArea').value = sampleMalayNames.join('\n');
+        }
+
+        function saveParticipants() {
+            const rawText = document.getElementById('nameInputArea').value;
+            // Split by line break and clean empty strings
+            participants = rawText.split('\n')
+                .map(name => name.trim())
+                .filter(name => name.length > 0);
+
+            localStorage.setItem('slot_participants', JSON.stringify(participants));
+            updateUI();
+            closeSetupModal();
+
+            const reelDisplay = document.getElementById('slotReel');
+            reelDisplay.innerText = participants.length > 0 ? "SENARAI DIKEMASKINI" : "TIADA PESERTA";
+        }
+
+        function openQRGuideModal() {
+            document.getElementById('qrGuideModal').classList.remove('hidden');
+        }
+
+        function closeQRGuideModal() {
+            document.getElementById('qrGuideModal').classList.add('hidden');
+        }
+
+        function closeWinnerModal() {
